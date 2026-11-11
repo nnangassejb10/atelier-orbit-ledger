@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Products live in src/lib/products.ts and the cart is a client context persisted to localStorage (src/lib/cart.tsx); no backend yet.
+- The 3D hero (three/R3F) is lazy-loaded client-only via ClientHero so SSR never imports three.
