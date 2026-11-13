@@ -1,4 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 import { Minus, Plus, X } from "lucide-react";
 import { PageTitle } from "@/components/SiteChrome";
 import { useCart } from "@/lib/cart";
@@ -19,7 +22,25 @@ export const Route = createFileRoute("/panier")({
 });
 
 function Panier() {
-  const { lines, total, setQty, remove } = useCart();
+  const { lines, total, setQty, remove, clear } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const checkout = async () => {
+    if (!user) return navigate({ to: "/connexion" });
+    setBusy(true);
+    const { error } = await supabase.from("orders").insert({
+      user_id: user.id,
+      total,
+      items: lines.map((l) => ({ id: l.id, name: l.name, price: l.price, qty: l.qty })),
+    });
+    setBusy(false);
+    if (error) return setMsg("La commande n'a pas pu être enregistrée. Réessayez.");
+    clear();
+    navigate({ to: "/connexion" });
+  };
   return (
     <>
       <PageTitle code="05 / Panier" title="Mon panier" />
@@ -56,9 +77,10 @@ function Panier() {
             <span className="spec">Total</span>
             <span className="font-display text-2xl font-bold">{formatPrice(total)}</span>
           </div>
-          <button disabled={!lines.length} className="spec mt-6 w-full rounded-sm bg-primary py-3.5 text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-40">
-            Passer au paiement
+          <button onClick={checkout} disabled={!lines.length || busy} className="spec mt-6 w-full rounded-sm bg-primary py-3.5 text-primary-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:opacity-40">
+            {busy ? "…" : user ? "Valider la commande" : "Se connecter pour commander"}
           </button>
+          {msg && <p className="mt-3 text-sm text-destructive">{msg}</p>}
         </aside>
       </section>
     </>

@@ -29,5 +29,5 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 
-- Products live in src/lib/products.ts and the cart is a client context persisted to localStorage (src/lib/cart.tsx); no backend yet.
+- Products live in src/lib/products.ts; the cart is a client context in localStorage (src/lib/cart.tsx). Accounts use Lovable Cloud auth; checkout inserts into public.orders (RLS: own rows), shown on /connexion.
 - The 3D hero (three/R3F) is lazy-loaded client-only via ClientHero so SSR never imports three.
