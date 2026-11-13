@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import siteLogo from "@/assets/logo-baground.png";
 import { useCart } from "@/lib/cart";
 
 const nav = [
@@ -17,10 +18,9 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-sm border border-primary font-mono text-xs text-primary">ES</span>
-          <span className="font-display text-lg font-bold tracking-tight">E-shop<span className="text-primary">.</span>ga</span>
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5">
+        <Link to="/" aria-label="E-shop.ga - Accueil" className="flex items-center">
+          <img src={siteLogo} alt="E-shop.ga" className="h-20 w-20 object-contain" />
         </Link>
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map((n) => (
@@ -64,7 +64,7 @@ export function SiteFooter() {
     <footer className="mt-24 border-t">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-3">
         <div>
-          <p className="font-display text-xl font-bold">E-shop<span className="text-primary">.</span>ga</p>
+          <img src={siteLogo} alt="E-shop.ga" className="h-24 w-24 object-contain" />
           <p className="mt-2 max-w-xs text-sm text-muted-foreground">Matériel informatique sélectionné, testé et livré à Libreville.</p>
         </div>
         <div className="spec space-y-2 text-muted-foreground">
