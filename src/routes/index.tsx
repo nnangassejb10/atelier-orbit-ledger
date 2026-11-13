@@ -3,16 +3,23 @@ import { ArrowRight } from "lucide-react";
 import { ClientHero } from "@/components/ClientHero";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/products";
+import magasinInfoImage from "@/assets/magasin-info.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "E-shop — PC gaming et informatique à Libreville" },
-      { name: "description", content: "Nouveau catalogue : PC gaming, portables, écrans et accessoires. Livraison à Libreville." },
+      { name: "description", content: "Vente de matériel informatique dans la capitale librevilloise." },
       { property: "og:title", content: "E-shop — PC gaming et informatique à Libreville" },
-      { property: "og:description", content: "Nouveau catalogue : PC gaming, portables, écrans et accessoires." },
+      { property: "og:description", content: "Vente de matériel informatique dans la capitale librevilloise." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: magasinInfoImage },
+      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:width", content: "1210" },
+      { property: "og:image:height", content: "580" },
+      { property: "og:image:alt", content: "Matériel informatique en vente à Libreville" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: magasinInfoImage },
     ],
   }),
   component: Index,
